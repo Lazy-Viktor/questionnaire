@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import API_URL from "..config";
 
 function ResultPage() {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ useEffect(() => {
 
   console.log("Fetching result with ID:", resultId);
 
-  fetch(`http://localhost:5000/api/results/${resultId}`)
+  fetch(`${API_URL}/api/results`)
     .then((res) => {
       if (!res.ok) {
         throw new Error(`HTTP error! Status: ${res.status}`);
@@ -43,10 +44,10 @@ useEffect(() => {
     return;
   }
 
-  const quizId = result.quizId._id; // Беремо тільки ID з об'єкта quizId
+  const quizId = result.quizId._id;
   console.log("Fetching quiz with ID:", quizId);
 
-  fetch(`http://localhost:5000/api/surveys/${quizId}`)
+  fetch(`${API_URL}/api/surveys`)
     .then((res) => {
       if (!res.ok) {
         throw new Error(`HTTP error! Status: ${res.status}`);

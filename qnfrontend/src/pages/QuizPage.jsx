@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import API_URL from "..config";
 
 const QuizPage = () => {
     const { id } = useParams();
@@ -12,7 +13,7 @@ const QuizPage = () => {
     useEffect(() => {
         const fetchQuiz = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/surveys/${id}`);
+                const response = await fetch(`${API_URL}/api/surveys/${id}`);
                 const data = await response.json();
                 console.log("Fetched Quiz Data:", data);
                 setQuiz(data);
@@ -65,7 +66,7 @@ const QuizPage = () => {
         };
       
         try {
-          const response = await fetch("http://localhost:5000/api/results", {
+          const response = await fetch(`${API_URL}/api/results`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(resultData),

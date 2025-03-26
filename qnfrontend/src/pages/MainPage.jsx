@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import API_URL from "..config";
 
 function MainPage() {
   const [quizzes, setQuizzes] = useState([]);
@@ -7,7 +8,7 @@ function MainPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/surveys")
+    fetch(`${API_URL}/api/surveys`)
         .then(response => response.json())
         .then(data => setQuizzes(data))
         .catch(error => console.error("Error fetching quizzes:", error));
