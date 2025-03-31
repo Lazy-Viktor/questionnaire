@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import API_URL from "../config";
 
+import './pages.css';
+
 const QuizPage = () => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -93,7 +95,7 @@ const QuizPage = () => {
     if (!quiz) return <h2>Loading...</h2>;
 
     return (
-        <div>
+        <div className="component-style">
             <h1>{quiz.title}</h1>
             <p><strong>Description:</strong> {quiz.description}</p>
             <p><strong>Created by:</strong> {quiz.createdBy}</p>
@@ -126,39 +128,42 @@ const QuizPage = () => {
                         )}
 
                         {question.type === "single_choice" && question.answers?.length > 0 && (
-                            <div>
-                                <p>Options:</p>
-                                {question.answers.map((option, i) => (
-                                    <label key={i} style={{ display: "block", marginTop: "5px" }}>
-                                        <input
-                                            type="radio"
-                                            name={`question-${index}`}
-                                            value={option}
-                                            checked={answers[index] === option}
-                                            onChange={() => handleAnswerChange(index, option)}
-                                        />
-                                        {option}
-                                    </label>
-                                ))}
-                            </div>
+                        <div className="options-container">
+                            <p className="options-label">Options:</p>
+                            {question.answers.map((option, i) => (
+                            <label key={i} className="option-label">
+                                <input
+                                type="radio"
+                                name={`question-${index}`}
+                                value={option}
+                                checked={answers[index] === option}
+                                onChange={() => handleAnswerChange(index, option)}
+                                className="option-input"
+                                />
+                                {option}
+                            </label>
+                            ))}
+                        </div>
                         )}
 
                         {question.type === "multiple_choice" && question.answers?.length > 0 && (
-                            <div>
-                                <p>Options:</p>
-                                {question.answers.map((option, i) => (
-                                    <label key={i} style={{ display: "block", marginTop: "5px" }}>
-                                        <input
-                                            type="checkbox"
-                                            value={option}
-                                            checked={answers[index]?.includes(option) || false}
-                                            onChange={() => handleAnswerChange(index, option, true)}
-                                        />
-                                        {option}
-                                    </label>
-                                ))}
-                            </div>
+                        <div className="options-container">
+                            <p className="options-label">Options:</p>
+                            {question.answers.map((option, i) => (
+                            <label key={i} className="option-label">
+                                <input
+                                type="checkbox"
+                                value={option}
+                                checked={answers[index]?.includes(option) || false}
+                                onChange={() => handleAnswerChange(index, option, true)}
+                                className="option-input"
+                                />
+                                {option}
+                            </label>
+                            ))}
+                        </div>
                         )}
+
                     </div>
                 ))}
             </div>

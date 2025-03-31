@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import API_URL from "../config";
 
+import './pages.css';
+
 function ResultPage() {
   const navigate = useNavigate();
   const { resultId } = useParams();
@@ -18,7 +20,7 @@ useEffect(() => {
 
   console.log("Fetching result with ID:", resultId);
 
-  fetch(`${API_URL}/api/results`)
+  fetch(`${API_URL}/api/results/${resultId}`)
     .then((res) => {
       if (!res.ok) {
         throw new Error(`HTTP error! Status: ${res.status}`);
@@ -47,7 +49,7 @@ useEffect(() => {
   const quizId = result.quizId._id;
   console.log("Fetching quiz with ID:", quizId);
 
-  fetch(`${API_URL}/api/surveys`)
+  fetch(`${API_URL}/api/surveys/${quizId}`)
     .then((res) => {
       if (!res.ok) {
         throw new Error(`HTTP error! Status: ${res.status}`);

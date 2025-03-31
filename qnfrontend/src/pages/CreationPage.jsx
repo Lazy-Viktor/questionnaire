@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API_URL from "../config";
 
+import './pages.css';
+
 function CreationPage() {
   const [title, setTitle] = useState("");
   const [password, setPassword] = useState("");
@@ -105,59 +107,72 @@ function CreationPage() {
   };
 
   return (
-    <div className="container">
+    <div className="component-style">
       <h2>Create a New Quiz</h2>
       
-      <label>Title:</label> <br />
-      <input 
-        type="text" 
-        value={title} 
-        onChange={(e) => setTitle(e.target.value)} 
-        placeholder="Enter quiz title" 
-      /> <br />
+      <div className="creation-form">
+        <div>
+          <label>Title:</label>
+          <input 
+            type="text" 
+            value={title} 
+            onChange={(e) => setTitle(e.target.value)} 
+            placeholder="Enter quiz title" 
+          />
+        </div>
 
-      <label>Password</label> <br />
-      <input 
-        type="password" 
-        value={password} 
-        onChange={(e) => setPassword(e.target.value)} 
-        placeholder="Come up with a password" 
-      /> <br />
+        <div>
+          <label>Description:</label>
+          <textarea 
+            value={description} 
+            onChange={(e) => setDescription(e.target.value)} 
+            placeholder="Enter quiz description" 
+          />
+        </div>
 
-      <label>Description:</label> <br />
-      <textarea 
-        value={description} 
-        onChange={(e) => setDescription(e.target.value)} 
-        placeholder="Enter quiz description" 
-      /> <br />
+        <div className="input-group">
+          <div>
+            <label>Created by:</label>
+            <input 
+              type="text" 
+              value={createdBy} 
+              onChange={(e) => setCreatedBy(e.target.value)} 
+              placeholder="Enter your name" 
+            />
+          </div>
 
-      <label>Created by:</label> <br />
-      <input 
-        type="text" 
-        value={createdBy} 
-        onChange={(e) => setCreatedBy(e.target.value)} 
-        placeholder="Enter your name" 
-      /> <br />
+          <div>
+            <label>Password:</label>
+            <input 
+              type="password" 
+              value={password} 
+              onChange={(e) => setPassword(e.target.value)} 
+              placeholder="Come up with a password" 
+            />
+          </div>
+        </div>
+      </div>
 
       <h3>Questions</h3> <br />
       {questions.map((q, index) => (
         <div key={q.id} className="question-container">
           <h4>Question {index + 1}</h4>
-          <input
-            type="text"
-            value={q.questionText}
-            onChange={(e) => updateQuestion(q.id, "questionText", e.target.value)}
-            placeholder="Enter question"
-          />
-
-          <select
-            value={q.type}
-            onChange={(e) => updateQuestion(q.id, "type", e.target.value)}
-          >
-            <option value="text">Text</option>
-            <option value="single_choice">Single Choice</option>
-            <option value="multiple_choice">Multiple Choice</option>
-          </select> <br />
+          <div className="question-header">
+            <input
+              type="text"
+              value={q.questionText}
+              onChange={(e) => updateQuestion(q.id, "questionText", e.target.value)}
+              placeholder="Enter question"
+            />
+            <select
+              value={q.type}
+              onChange={(e) => updateQuestion(q.id, "type", e.target.value)}
+            >
+              <option value="text">Text</option>
+              <option value="single_choice">Single Choice</option>
+              <option value="multiple_choice">Multiple Choice</option>
+            </select>
+          </div><br />
 
           {(q.type === "text") && (
             <input
@@ -178,18 +193,31 @@ function CreationPage() {
                   onChange={(e) => updateChoice(q.id, idx, e.target.value)}
                   placeholder={`Choice ${idx + 1}`}
                 />
-                <button onClick={() => toggleCorrectAnswer(q.id, idx)}>
+                <button
+                  className={q.correctAnswers[idx] ? "correct" : "incorrect"}
+                  onClick={() => toggleCorrectAnswer(q.id, idx)}
+                >
                   {q.correctAnswers[idx] ? "Correct" : "Incorrect"}
                 </button>
-                <br />
               </div>
             ))}
-            <button onClick={() => addChoice(q.id)} disabled={q.answers.length >= 8}>
-              Add Choice
-            </button>
-            <button onClick={() => removeChoice(q.id)} disabled={q.answers.length <= 2}>
-              Remove Choice
-            </button>
+            <div className="choice-buttons">
+              <button
+                className="add-choice"
+                onClick={() => addChoice(q.id)}
+                disabled={q.answers.length >= 8}
+              >
+                Add Choice
+              </button>
+              
+              <button
+                className="remove-choice"
+                onClick={() => removeChoice(q.id)}
+                disabled={q.answers.length <= 2}
+              >
+                Remove Choice
+              </button>
+            </div>
           </div>
           )}
 
@@ -203,10 +231,12 @@ function CreationPage() {
                   onChange={(e) => updateChoice(q.id, idx, e.target.value)}
                   placeholder={`Choice ${idx + 1}`}
                 />
-                <button onClick={() => toggleCorrectAnswer(q.id, idx)}>
+                <button
+                  className={q.correctAnswers[idx] ? "correct" : "incorrect"}
+                  onClick={() => toggleCorrectAnswer(q.id, idx)}
+                >
                   {q.correctAnswers[idx] ? "Correct" : "Incorrect"}
                 </button>
-                <br />
               </div>
             ))}
             <button onClick={() => addChoice(q.id)} disabled={q.answers.length >= 8}>
@@ -219,11 +249,22 @@ function CreationPage() {
           )}
         </div>
       ))}
-
-      <button onClick={addQuestion}>Add Question</button>
-      {questions.length > 0 && <button onClick={deleteQuestion}>Delete Question</button>}
       <br />
-      <button onClick={handleCreateQuiz}>Create Quiz</button>
+      <div className="action-buttons">
+        <button className="add-question" onClick={addQuestion}>
+          Add Question
+        </button>
+        
+        {questions.length > 0 && (
+          <button className="delete-question" onClick={deleteQuestion}>
+            Delete Question
+          </button>
+        )}
+      </div>
+      <br />
+      <button className="create-quiz-button" onClick={handleCreateQuiz}>
+        Create Quiz
+      </button>
     </div>
   );
 };

@@ -1,1 +1,31 @@
-
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #334155;
+    padding: 10px 20px;
+  }
+  
+  header h1 {
+    flex: 3;
+    text-align: center;
+    font-family: "Playfair Display", serif;
+    color: #FAF3E0;
+    margin: 0;
+  }
+  
+  header button {
+    flex: 1;
+    padding: 8px 12px;
+    background-color: #64748b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  header button:hover {
+    background-color: #475569;
+  }
+  
