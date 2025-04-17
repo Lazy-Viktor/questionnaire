@@ -1,6 +1,6 @@
-Web-based application for building questionnaires. Entry task for ET-school.
+Web-based application for building questionnaires.
 
-Link: https://questionnaire-theta-ten.vercel.app/
+Link: https://questionnaire-theta-ten.vercel.app/ (Dead link)
 
 What is currently implemented:
 1. Main Page: loads all avaliable quizes from database. Each quizz shows it's title, description, author, amount of questions and amount of completions. You can sort quizzes by name, ammount of questions and date of creation. Has a button to create a new quiz. Each quiz has a button to complete it, edit it or delete it (for edit and delete actions, asks password).
